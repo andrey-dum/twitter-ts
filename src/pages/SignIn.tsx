@@ -1,10 +1,13 @@
-import { Button, makeStyles, Typography } from '@material-ui/core';
 import React from 'react'
-
+import { Button, makeStyles, Typography } from '@material-ui/core';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import SearchIcon from '@material-ui/icons/Search';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import { ModalDialog } from '../components/Dialog/ModalDialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles((theme) =>({
@@ -55,7 +58,9 @@ const useStyles = makeStyles((theme) =>({
         alignItems: 'center',
         justifyContent: 'center',
         flex: 0.5,
+        
     },
+    
     loginTwitterIcon: {
         fontSize: 45,
     },
@@ -75,8 +80,95 @@ const useStyles = makeStyles((theme) =>({
 export default function SignIn() {
     const classes = useStyles()
 
+    const [open, setOpen] = React.useState<'signIn' | 'signUp'>();
+
+    const handleClickOpenSignIn = (): void => {
+        setOpen('signIn');
+    };
+    const handleClickOpenSignUp = (): void => {
+        setOpen('signUp');
+    };
+
+    const handleClose = (): void => {
+        setOpen(undefined);
+    };
+
     return (
         <div className={classes.wrapper}>
+            <ModalDialog 
+                open={open === 'signIn'} 
+                title={'Войти в Твиттер'} 
+                handleClose={handleClose}
+            >
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="email"
+                        label="Email Address"
+                        type="email"
+                        fullWidth
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="password"
+                        label="Password"
+                        type="password"
+                        fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Отмена
+                    </Button>
+                    <Button onClick={handleClose} color="primary">
+                        Войти
+                    </Button>
+                </DialogActions>
+            </ModalDialog>
+
+            <ModalDialog 
+                open={open === 'signUp'} 
+                title={'Создайте учетную запись'} 
+                handleClose={handleClose}
+            >
+                 <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Name"
+                        type="text"
+                        fullWidth
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="email"
+                        label="Email Address"
+                        type="email"
+                        fullWidth
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="password"
+                        label="Password"
+                        type="password"
+                        fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Отмена
+                    </Button>
+                    <Button onClick={handleClose} color="primary" variant="contained">
+                        Далее
+                    </Button>
+                </DialogActions>
+            </ModalDialog>
+
             <div className={classes.blueBlock}>
                 <TwitterIcon color="primary" className={classes.loginTwitterBigIcon} />
                 <ul className={classes.blueBlockList}>
@@ -105,8 +197,8 @@ export default function SignIn() {
                     <TwitterIcon color="primary" className={classes.loginTwitterIcon} />
                     <Typography className={classes.loginBlockTitle} variant="h4">Узнайте, что происходит в мире прямо сейчас</Typography>
                     <Typography><b>Присоединяйтесь к Твиттеру прямо сейчас!</b></Typography>
-                    <Button style={{marginBottom: 20, marginTop: 10}} variant="contained" color="primary" fullWidth>Зарегистрироваться</Button>
-                    <Button variant="outlined" color="primary" fullWidth>Войти</Button>
+                    <Button onClick={handleClickOpenSignUp} style={{marginBottom: 20, marginTop: 10}} variant="contained" color="primary" fullWidth>Зарегистрироваться</Button>
+                    <Button onClick={handleClickOpenSignIn} variant="outlined" color="primary" fullWidth>Войти</Button>
                 </div>
             </div>
         </div>
