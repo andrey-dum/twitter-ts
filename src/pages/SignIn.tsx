@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) =>({
 
  
 
-export default function SignIn() {
+export const SignIn: React.FC = (): React.ReactElement => {
     const classes = useStyles()
 
     const [open, setOpen] = React.useState<'signIn' | 'signUp'>();
