@@ -6,7 +6,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import { Avatar } from '@material-ui/core';
-import { useHomeStyles } from '../pages/Home'
+import { useHomeStyles } from '../pages/Home/theme'
 import { withStyles, } from '@material-ui/core/styles';
 
 interface TweetProps {
