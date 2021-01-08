@@ -10,12 +10,14 @@ import { useHomeStyles } from '../pages/Home/theme'
 
 interface TweetBoxProps {
     classes: ReturnType<typeof useHomeStyles>;
+    maxRows?: number;
 }
 
 
 
 export const TweetBox: React.FC<TweetBoxProps> = ({
-    classes
+    classes,
+    maxRows=20
     }: TweetBoxProps): React.ReactElement => {
 
     const [text, setText] = React.useState<string>('');
@@ -45,6 +47,7 @@ export const TweetBox: React.FC<TweetBoxProps> = ({
                         value={text}
                         onChange={handleChangeTextarea}
                         rowsMin={4}
+                        rowsMax={maxRows}
                         placeholder="Что происходит?" />
 
                     <div className={classes.tweetBoxActions}>

@@ -20,6 +20,16 @@ interface SidebarMenuProps {
 export const SidebarMenu: React.FC<SidebarMenuProps> = ({
     classes
     }:SidebarMenuProps):React.ReactElement => {
+        const [openModal, setOpenMoadal] = React.useState<boolean>(false);
+
+        const handleOpenModal =() => {
+            setOpenMoadal(true)
+        }
+
+        const handleCloseModal =() => {
+            setOpenMoadal(false)
+        }
+
     return (
         <div className={classes.sidebar}>
                 <IconButton aria-label="TwitterIcon" color="primary">
@@ -65,7 +75,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({
             </ul>
             <Button 
                 style={{width: '200px'}}
-                onClick={() => {}} 
+                onClick={handleOpenModal} 
                 color="primary" 
                 variant="contained"
                 fullWidth
@@ -74,11 +84,14 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({
             </Button>
             <ModalDialog
                 title={'Сделать твит'}
-                open={true}
-                handleClose={() => {}}
+                open={openModal}
+                handleClose={handleCloseModal}
             >
-                {/* <TweetBox /> */}
-                text
+                <div style={{width: 550}}>
+                    <TweetBox 
+                        maxRows={12}
+                        classes={classes} />
+                </div>
             </ModalDialog>
         </div>
     )
