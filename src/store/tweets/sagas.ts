@@ -1,4 +1,4 @@
-import { tweetsApi } from './../../services/api/tweetsApi';
+import { tweetsApi } from '../../services/api/tweetsApi';
 
 import { setTweets, TweetsAtionsType, setTweetsLoadingState } from './actionCreators';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'

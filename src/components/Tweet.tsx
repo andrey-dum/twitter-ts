@@ -8,8 +8,10 @@ import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import { Avatar } from '@material-ui/core';
 import { useHomeStyles } from '../pages/Home/theme'
 import { withStyles, } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 interface TweetProps {
+    _id: string | number;
     classes: ReturnType<typeof useHomeStyles>;
     text: string;
     user: {
@@ -29,13 +31,15 @@ const StyledBadge = withStyles((theme) => ({
   }))(Badge);
 
 export const Tweet: React.FC<TweetProps> = ({
-     classes, 
+     classes,
+     _id,
      user, 
      text 
     }: TweetProps):React.ReactElement => {
 
     return (
         <div className={classes.tweet}>
+            <Link to={`/home/tweet/${_id}`}>
             <Avatar 
                 src={user.avatarUrl} 
                 alt={`${user.avatarUrl}`} 
@@ -73,6 +77,7 @@ export const Tweet: React.FC<TweetProps> = ({
                     </IconButton>
                 </div>
             </div>
+            </Link>
         </div>
     )
 }

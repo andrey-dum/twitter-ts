@@ -1,6 +1,6 @@
 import { LoadingState } from './state';
 import { Action } from 'redux';
-import { TweetsState } from './../tweets/state';
+import { TweetsState } from './state';
 
 export enum TweetsAtionsType {
     SET_TWEETS = 'tweets/SET_TWEETS',

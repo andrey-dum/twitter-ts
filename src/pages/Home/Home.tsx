@@ -1,9 +1,8 @@
 import React from 'react'
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import SearchIcon from '@material-ui/icons/Search';
-
+import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import { Avatar, CircularProgress, Typography } from '@material-ui/core';
 import { Tweet } from '../../components/Tweet';
 import { SidebarMenu } from '../../components/SidebarMenu';
@@ -13,10 +12,16 @@ import { useHomeStyles } from './theme';
 import { SearchtextField } from '../../components/SearchTextField';
 
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchTweets } from '../../store/tweets/actionCreators';
+
 import { selectTweetsLoading, selectTweetsItems } from '../../store/tweets/selectors';
+import { fetchTweets } from '../../store/tweets/actionCreators';
+// import { selectTagsItems } from '../../store/tags/selectors';
+// import { fetchTags } from '../../store/tags/actionCreators';
+import { Tags } from '../../components/Tags';
+import { Route } from 'react-router-dom';
 
 
+import {BackButton} from '../../components/BackButton';
 
 export const Home: React.FC = (): React.ReactElement => {
     const classes = useHomeStyles();
@@ -25,9 +30,11 @@ export const Home: React.FC = (): React.ReactElement => {
     const tweets = useSelector(selectTweetsItems)
     const isLoading = useSelector(selectTweetsLoading)
     
+    // const tags = useSelector(selectTagsItems)
 
     React.useEffect(() => {
         dispatch(fetchTweets());
+        // dispatch(fetchTags());
     }, [dispatch])
 
    
@@ -41,20 +48,51 @@ export const Home: React.FC = (): React.ReactElement => {
                 </Grid>
                 <Grid item xs={6}>
                     <div className={classes.feed}>
-                        <div className={classes.feedHeader}><Typography variant="h6">Главная</Typography></div> 
-                        <TweetBox classes={classes} />
-                        <div className={classes.tweetBoxDivider} />
+                        <div className={classes.feedHeader}>
+                            <Route path={'/home/:any'}>
+                                <BackButton />
+                            </Route>
 
-                        { isLoading 
-                            ? <div style={{textAlign: 'center', marginTop: '40px'}}><CircularProgress /></div> 
-                            : tweets && tweets.map(tweet => (
-                            <Tweet
-                                key={tweet._id}
-                                classes={classes}
-                                text={tweet.text}
-                            user={tweet.user}
-                        />
-                        ))}
+                            <Route path={['/home', '/home/search']} exact>
+                                <Typography variant="h6">Твиты</Typography>
+                            </Route>
+                            
+                            <Route path={`/home/tweet/:_id`}>
+                                <Typography variant="h6">Твитнуть</Typography>
+                            </Route>
+
+                        </div>
+
+                        <Route path={['/home', '/home/search']} exact>
+                            <TweetBox classes={classes} />
+                            <div className={classes.tweetBoxDivider} />
+                        </Route>
+                        
+
+                        {/* <Route path={`/home/tweet/:_id`}>
+                            <div className={classes.feedHeader}>
+                                <IconButton color="primary">
+                                    <ArrowBackIcon/>
+                                </IconButton>
+                                <Typography variant="h6">Твитнуть</Typography>
+                            </div>
+                        </Route> */}
+
+                        <Route path="/home" exact>
+                            { isLoading 
+                                    ? <div style={{textAlign: 'center', marginTop: '40px'}}><CircularProgress /></div> 
+                                    : tweets && tweets.map(tweet => (
+                                    <Tweet
+                                        key={tweet._id}
+                                        _id={tweet._id}
+                                        classes={classes}
+                                        text={tweet.text}
+                                        user={tweet.user}
+                                />
+                                ))}
+                        </Route>
+
+                        
                         
                       
                     </div>
@@ -72,24 +110,19 @@ export const Home: React.FC = (): React.ReactElement => {
                                 fullWidth
                             />
                         </div>
-
-                            <div className={classes.righBlock}>
-                                <Typography variant="h6">Актуальные темы</Typography>
-                                <div className={'actualTheme'}>
-                                    <div><b> Киев</b></div>
-                                    <small>Твитов: 1000</small>
-                                </div>
-                            </div>
+                            <Tags classes={classes} />
 
                             <div className={classes.righBlock}>
                                 <Typography variant="h6">Кого читать</Typography>
                                 <div className={classes.readUser}>
-                                    <Avatar />
-                                    <div>
-                                        <div><b> Andrey</b></div>
-                                        <small>@andrey</small>
+                                    <div className={classes.readUserInfo}>
+                                        <Avatar className={classes.readUserAvatar} />
+                                        <div>
+                                           <div><b> Andrey</b></div>
+                                            <small>@andrey</small>
+                                        </div>
                                     </div>
-                                    <PermIdentityIcon />
+                                    <PersonAddOutlinedIcon color="primary" />
                                 </div>
                             </div>
                     </div>

@@ -20,9 +20,7 @@ export const useHomeStyles = makeStyles((theme) => ({
             fontWeight: 700
         },
     },
-    righBlock: {
-        margin: '20px 0'
-    },
+   
     sideMenu: {
         
         listStyleType: 'none',
@@ -79,7 +77,8 @@ export const useHomeStyles = makeStyles((theme) => ({
         top: 0,
         backgroundColor: '#fff',
         zIndex: 999,
-        borderBottom: '1px solid #ededed'
+        borderBottom: '1px solid #ededed',
+        display: 'flex',
     },
     tweetBoxDivider: {
         borderBottom: '8px solid #ededed',
@@ -128,6 +127,10 @@ export const useHomeStyles = makeStyles((theme) => ({
         padding: 15,
         display: 'flex',
         borderBottom: '1px solid #ededed',
+        '& a': {
+            color: 'inherit',
+            textDecoration: 'none'
+        }
     },
     tweetBody: {
         display: 'flex',
@@ -154,9 +157,50 @@ export const useHomeStyles = makeStyles((theme) => ({
            
         }
     },
+    righBlock: {
+        margin: '20px 0',
+        '& h6': {
+            marginBottom: 15,
+        }
+    },
+    actualTheme: {
+        borderBottom: '1px solid #ededed',
+        borderTop: '1px solid #ededed',
+        padding: '10px',
+        '& a': {
+            display: 'block',
+            color: 'inherit',
+            textDecoration: 'none',
+        },
+        '&:hover': {
+            backgroundColor: '#f2f2f2',
+            cursor: 'pointer'
+        },
+        '& small': {
+            color: 'gray'
+        },
+    },
     readUser: {
         display: 'flex',
-        
-    }
+        borderBottom: '1px solid #ededed',
+        borderTop: '1px solid #ededed',
+        padding: '10px',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        '& svg': {
+            fontSize: 30
+        },
+        '&:hover': {
+            backgroundColor: '#f2f2f2',
+            cursor: 'pointer'
+        },
+    },
+    readUserInfo: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    readUserAvatar: {
+        marginRight: 15
+    },
     
   }));

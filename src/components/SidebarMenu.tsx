@@ -11,6 +11,7 @@ import { Button, Typography } from '@material-ui/core';
 import { useHomeStyles } from '../pages/Home/theme'
 import { ModalDialog } from './Dialog/ModalDialog';
 import { TweetBox } from './TweetBox';
+import { Link } from 'react-router-dom';
 
 interface SidebarMenuProps {
     classes: ReturnType<typeof useHomeStyles>;
@@ -32,9 +33,11 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
     return (
         <div className={classes.sidebar}>
-                <IconButton aria-label="TwitterIcon" color="primary">
-                    <TwitterIcon className={classes.logo} />
-                 </IconButton>
+                <Link to="/home">
+                    <IconButton aria-label="TwitterIcon" color="primary">
+                        <TwitterIcon className={classes.logo} />
+                    </IconButton>
+                </Link>
             <ul className={classes.sideMenu}>
                 <li>
                     <IconButton aria-label="TwitterIcon">
