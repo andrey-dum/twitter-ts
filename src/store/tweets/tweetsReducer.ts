@@ -9,8 +9,33 @@ const initialTweetState: TweetsState = {
 
 export const tweetsReducer = produce((draft: Draft<TweetsState>, action: TweetsActions) => {
     // const {type, payload} = action
-    if (action.type === TweetsAtionsType.SET_TWEETS) {
-        draft.items = action.payload
+    switch (action.type) {
+        case TweetsAtionsType.SET_TWEETS:
+            draft.items = action.payload
+            draft.loadingState = LoadingState.LOADED; 
+            break;
+            
+        case TweetsAtionsType.FETCH_TWEETS:
+            draft.items = [];
+            draft.loadingState = LoadingState.LOADING;
+            break;
+
+        case TweetsAtionsType.SET_LOADING_STATE:
+            draft.loadingState = action.payload
+            break;
+
+        default:
+            break;
     }
+
+    // if (action.type === TweetsAtionsType.SET_TWEETS) {
+    //     draft.items = action.payload
+    //     draft.loadingState = LoadingState.LOADED;
+    // }
+
+    // if (action.type === TweetsAtionsType.SET_LOADING_STATE) {
+    //     draft.loadingState = action.payload
+    // }
+
 
 }, initialTweetState)

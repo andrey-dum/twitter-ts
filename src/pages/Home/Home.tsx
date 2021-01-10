@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import SearchIcon from '@material-ui/icons/Search';
 
-import { Avatar, Typography } from '@material-ui/core';
+import { Avatar, CircularProgress, Typography } from '@material-ui/core';
 import { Tweet } from '../../components/Tweet';
 import { SidebarMenu } from '../../components/SidebarMenu';
 
@@ -12,16 +12,29 @@ import { TweetBox } from '../../components/TweetBox';
 import { useHomeStyles } from './theme';
 import { SearchtextField } from '../../components/SearchTextField';
 
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchTweets } from '../../store/tweets/actionCreators';
+import { selectTweetsLoading, selectTweetsItems } from '../../store/tweets/selectors';
+
 
 
 export const Home: React.FC = (): React.ReactElement => {
     const classes = useHomeStyles();
 
+    const dispatch = useDispatch()
+    const tweets = useSelector(selectTweetsItems)
+    const isLoading = useSelector(selectTweetsLoading)
+    
+
+    React.useEffect(() => {
+        dispatch(fetchTweets());
+    }, [dispatch])
+
+   
     return (
         <Container className={classes.wrapper} maxWidth="lg">
             <Grid container spacing={3}>
                 <Grid item xs={3}>
-                    
                     
                     <SidebarMenu classes={classes} />
                     
@@ -32,90 +45,18 @@ export const Home: React.FC = (): React.ReactElement => {
                         <TweetBox classes={classes} />
                         <div className={classes.tweetBoxDivider} />
 
-                        <Tweet 
-                            classes={classes}
-                            text={
-                                `React – A JavaScript library for building user interfacesreactjs.org
-                                React · Declarative React makes it painless to create interactive UIs. · Component-Based Build encapsulated components that manage their own state, then ...`
-                            }
-                            user={{
-                                fullname: 'Jon Jones', 
-                                username: 'bones',
-                                avatarUrl: 'https://api.time.com/wp-content/uploads/2015/01/jon-jones.jpg'
-                            }}
+                        { isLoading 
+                            ? <div style={{textAlign: 'center', marginTop: '40px'}}><CircularProgress /></div> 
+                            : tweets && tweets.map(tweet => (
+                            <Tweet
+                                key={tweet._id}
+                                classes={classes}
+                                text={tweet.text}
+                            user={tweet.user}
                         />
-                        <Tweet 
-                            classes={classes}
-                            text={
-                                `React – A JavaScript library for building user interfacesreactjs.org
-                                React · Declarative React makes it painless to create interactive UIs. · Component-Based Build encapsulated components that manage their own state, then ...`
-                            }
-                            user={{
-                                fullname: 'Jon Jones', 
-                                username: 'bones',
-                                avatarUrl: 'https://api.time.com/wp-content/uploads/2015/01/jon-jones.jpg'
-                            }}
-                        />
-                        <Tweet 
-                            classes={classes}
-                            text={
-                                `React – A JavaScript library for building user interfacesreactjs.org
-                                React · Declarative React makes it painless to create interactive UIs. · Component-Based Build encapsulated components that manage their own state, then ...`
-                            }
-                            user={{
-                                fullname: 'Jon Jones', 
-                                username: 'bones',
-                                avatarUrl: 'https://api.time.com/wp-content/uploads/2015/01/jon-jones.jpg'
-                            }}
-                        />
-                        <Tweet 
-                            classes={classes}
-                            text={
-                                `React – A JavaScript library for building user interfacesreactjs.org
-                                React · Declarative React makes it painless to create interactive UIs. · Component-Based Build encapsulated components that manage their own state, then ...`
-                            }
-                            user={{
-                                fullname: 'Jon Jones', 
-                                username: 'bones',
-                                avatarUrl: 'https://api.time.com/wp-content/uploads/2015/01/jon-jones.jpg'
-                            }}
-                        />
-                        <Tweet 
-                            classes={classes}
-                            text={
-                                `React – A JavaScript library for building user interfacesreactjs.org
-                                React · Declarative React makes it painless to create interactive UIs. · Component-Based Build encapsulated components that manage their own state, then ...`
-                            }
-                            user={{
-                                fullname: 'Jon Jones', 
-                                username: 'bones',
-                                avatarUrl: 'https://api.time.com/wp-content/uploads/2015/01/jon-jones.jpg'
-                            }}
-                        />
-                        <Tweet 
-                            classes={classes}
-                            text={
-                                `React – A JavaScript library for building user interfacesreactjs.org
-                                React · Declarative React makes it painless to create interactive UIs. · Component-Based Build encapsulated components that manage their own state, then ...`
-                            }
-                            user={{
-                                fullname: 'Jon Jones', 
-                                username: 'bones',
-                                avatarUrl: 'https://api.time.com/wp-content/uploads/2015/01/jon-jones.jpg'
-                            }}
-                        />
-                        <Tweet 
-                            classes={classes}
-                            text={
-                                `React – A JavaScript library for building user interfacesreactjs.org
-                                React · Declarative React makes it painless to create interactive UIs. · Component-Based Build encapsulated components that manage their own state, then ...`
-                            }
-                            user={{
-                                fullname: 'Jon Jones', 
-                                username: 'bones',
-                                avatarUrl: 'https://api.time.com/wp-content/uploads/2015/01/jon-jones.jpg'
-                            }}
-                        />
+                        ))}
+                        
+                      
                     </div>
                 </Grid>
                 <Grid item xs={3}>
