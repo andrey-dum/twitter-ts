@@ -129,6 +129,7 @@ export const useHomeStyles = makeStyles((theme) => ({
         borderBottom: '1px solid #ededed',
         '& a': {
             color: 'inherit',
+            display: 'flex',
             textDecoration: 'none'
         }
     },

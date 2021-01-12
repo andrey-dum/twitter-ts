@@ -15,13 +15,13 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { selectTweetsLoading, selectTweetsItems } from '../../store/tweets/selectors';
 import { fetchTweets } from '../../store/tweets/actionCreators';
-// import { selectTagsItems } from '../../store/tags/selectors';
-// import { fetchTags } from '../../store/tags/actionCreators';
+
 import { Tags } from '../../components/Tags';
 import { Route } from 'react-router-dom';
 
 
 import {BackButton} from '../../components/BackButton';
+import { FullTweet } from '../../components/FullTweet';
 
 export const Home: React.FC = (): React.ReactElement => {
     const classes = useHomeStyles();
@@ -30,11 +30,9 @@ export const Home: React.FC = (): React.ReactElement => {
     const tweets = useSelector(selectTweetsItems)
     const isLoading = useSelector(selectTweetsLoading)
     
-    // const tags = useSelector(selectTagsItems)
 
     React.useEffect(() => {
         dispatch(fetchTweets());
-        // dispatch(fetchTags());
     }, [dispatch])
 
    
@@ -63,21 +61,15 @@ export const Home: React.FC = (): React.ReactElement => {
 
                         </div>
 
+                        <Route path={`/home/tweet/:id`} component={FullTweet} exact>
+                            
+                        </Route>
+
                         <Route path={['/home', '/home/search']} exact>
                             <TweetBox classes={classes} />
                             <div className={classes.tweetBoxDivider} />
                         </Route>
                         
-
-                        {/* <Route path={`/home/tweet/:_id`}>
-                            <div className={classes.feedHeader}>
-                                <IconButton color="primary">
-                                    <ArrowBackIcon/>
-                                </IconButton>
-                                <Typography variant="h6">Твитнуть</Typography>
-                            </div>
-                        </Route> */}
-
                         <Route path="/home" exact>
                             { isLoading 
                                     ? <div style={{textAlign: 'center', marginTop: '40px'}}><CircularProgress /></div> 
