@@ -22,6 +22,7 @@ import { Route } from 'react-router-dom';
 
 import {BackButton} from '../../components/BackButton';
 import { FullTweet } from '../../components/FullTweet';
+import { SingleTweet } from '../../components/SingleTweet';
 
 export const Home: React.FC = (): React.ReactElement => {
     const classes = useHomeStyles();
@@ -61,7 +62,7 @@ export const Home: React.FC = (): React.ReactElement => {
 
                         </div>
 
-                        <Route path={`/home/tweet/:id`} component={FullTweet} exact />
+                        <Route path={`/home/tweet/:id`} component={SingleTweet} exact />
                             
 
                         <Route path={['/home', '/home/search']} exact>

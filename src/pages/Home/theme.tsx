@@ -122,7 +122,15 @@ export const useHomeStyles = makeStyles((theme) => ({
           
         }
     },
-
+    singleTweetHeaderWrap: {
+        display: 'flex',
+    },
+    singleTweetHeader: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginLeft: 15,
+        marginBottom: 12
+    },
     tweet: {
         padding: 15,
         display: 'flex',

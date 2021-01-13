@@ -43,9 +43,7 @@ export const TweetBox: React.FC<TweetBoxProps> = ({
     const textCount = MAX_LENGTH - text.length
 
     const handleChangeTextarea = (e: React.FormEvent<HTMLTextAreaElement>): void => {
-        if(e.currentTarget.value) {
-            setText(e.currentTarget.value)
-        }
+        setText(e.currentTarget.value)
     }
   
     const handleAddTweet = (): void => {
@@ -117,7 +115,12 @@ export const TweetBox: React.FC<TweetBoxProps> = ({
                                 color="primary"
                                 disabled={text.length > MAX_LENGTH || text.length < 2}
                                 
-                            >Твитнуть</Button>
+                            >
+                                { addFormState === AddTweetFormState.LOADING
+                                    ? <CircularProgress size={16} />
+                                    :   'Твитнуть'
+                                }
+                            </Button>
                         </div>
                     
                     </div>
