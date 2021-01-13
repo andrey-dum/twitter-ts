@@ -61,9 +61,8 @@ export const Home: React.FC = (): React.ReactElement => {
 
                         </div>
 
-                        <Route path={`/home/tweet/:id`} component={FullTweet} exact>
+                        <Route path={`/home/tweet/:id`} component={FullTweet} exact />
                             
-                        </Route>
 
                         <Route path={['/home', '/home/search']} exact>
                             <TweetBox classes={classes} />
@@ -72,21 +71,18 @@ export const Home: React.FC = (): React.ReactElement => {
                         
                         <Route path="/home" exact>
                             { isLoading 
-                                    ? <div style={{textAlign: 'center', marginTop: '40px'}}><CircularProgress /></div> 
-                                    : tweets && tweets.map(tweet => (
-                                    <Tweet
-                                        key={tweet._id}
-                                        _id={tweet._id}
-                                        classes={classes}
-                                        text={tweet.text}
-                                        user={tweet.user}
+                                ? <div style={{textAlign: 'center', marginTop: '40px'}}><CircularProgress /></div> 
+                                : tweets && tweets.map(tweet => (
+                                <Tweet
+                                    key={tweet._id}
+                                    _id={tweet._id}
+                                    classes={classes}
+                                    text={tweet.text}
+                                    user={tweet.user}
                                 />
-                                ))}
+                            ))}
                         </Route>
 
-                        
-                        
-                      
                     </div>
                 </Grid>
                 <Grid item xs={3}>
@@ -102,21 +98,21 @@ export const Home: React.FC = (): React.ReactElement => {
                                 fullWidth
                             />
                         </div>
-                            <Tags classes={classes} />
+                        <Tags classes={classes} />
 
-                            <div className={classes.righBlock}>
-                                <Typography variant="h6">Кого читать</Typography>
-                                <div className={classes.readUser}>
-                                    <div className={classes.readUserInfo}>
-                                        <Avatar className={classes.readUserAvatar} />
-                                        <div>
-                                           <div><b> Andrey</b></div>
-                                            <small>@andrey</small>
-                                        </div>
+                        <div className={classes.righBlock}>
+                            <Typography variant="h6">Кого читать</Typography>
+                            <div className={classes.readUser}>
+                                <div className={classes.readUserInfo}>
+                                    <Avatar className={classes.readUserAvatar} />
+                                    <div>
+                                        <div><b> Andrey</b></div>
+                                        <small>@andrey</small>
                                     </div>
-                                    <PersonAddOutlinedIcon color="primary" />
                                 </div>
+                                <PersonAddOutlinedIcon color="primary" />
                             </div>
+                        </div>
                     </div>
                 </Grid>
             </Grid>

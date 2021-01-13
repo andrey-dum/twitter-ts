@@ -1,27 +1,15 @@
-import { LoadingState } from './state';
-import { Action } from 'redux';
-import { TweetsState } from './state';
+import { 
+    SetTweetsActionInterface, 
+    SetAddFormStateActionInterface, 
+    FetchAddTweetActionInterface,
+    AddTweetActionInterface,
+    SetTweetsLoadingStateActionInterface, 
+    TweetsAtionsType } from './actionTypes';
 
-export enum TweetsAtionsType {
-    SET_TWEETS = 'tweets/SET_TWEETS',
-    FETCH_TWEETS = 'tweets/FETCH_TWEETS',
-    SET_LOADING_STATE = 'tweets/SET_LOADING_STATE',
-
-}
+import { FetchTweetsActionInterface } from './actionTypes';
+import { LoadingState, Tweet, AddTweetFormState, TweetsState } from './state';
 
 
-export interface SetTweetsActionInterface extends Action<TweetsAtionsType> {
-    type: TweetsAtionsType.SET_TWEETS;
-    payload: TweetsState['items'];
-}
-export interface FetchTweetsActionInterface extends Action<TweetsAtionsType> {
-    type: TweetsAtionsType.FETCH_TWEETS;
-}
-
-export interface SetTweetsLoadingStateActionInterface extends Action<TweetsAtionsType> {
-    type: TweetsAtionsType.SET_LOADING_STATE;
-    payload: LoadingState;
-}
 
 
 // ActionsC
@@ -33,9 +21,30 @@ export const setTweets = (payload: TweetsState['items']): SetTweetsActionInterfa
     type: TweetsAtionsType.SET_TWEETS,
     payload
 })
+
+export const setAddTweetFormState = (payload: AddTweetFormState): SetAddFormStateActionInterface  => ({
+    type: TweetsAtionsType.SET_ADD_FORM_STATE,
+    payload
+})
+
+export const fetchAddTweet = (payload: string): FetchAddTweetActionInterface  => ({
+    type: TweetsAtionsType.FETCH_ADD_TWEET,
+    payload
+})
+export const addTweet = (payload: Tweet): AddTweetActionInterface  => ({
+    type: TweetsAtionsType.ADD_TWEET,
+    payload
+})
+
 export const setTweetsLoadingState = (payload: LoadingState): SetTweetsLoadingStateActionInterface  => ({
     type: TweetsAtionsType.SET_LOADING_STATE,
     payload
 })
 
-export type TweetsActions = SetTweetsActionInterface | SetTweetsLoadingStateActionInterface | FetchTweetsActionInterface;
+export type TweetsActions = 
+SetTweetsActionInterface | 
+SetTweetsLoadingStateActionInterface 
+| FetchTweetsActionInterface 
+| FetchAddTweetActionInterface 
+| AddTweetActionInterface
+| SetAddFormStateActionInterface;
